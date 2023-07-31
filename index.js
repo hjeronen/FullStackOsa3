@@ -43,6 +43,12 @@ app.get('/api/persons/:id', (req, res) => {
   }
 })
 
+app.delete('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id)
+  persons = persons.filter(person => person.id !== id)
+  res.status(204).end()
+})
+
 app.get('/info', (req, res) => {
   const info = `<p>Phonebook has info for ${persons.length} people</p>`
   const date = `<p>${Date()}</p>`
