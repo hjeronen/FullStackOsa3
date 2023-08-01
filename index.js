@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
-
 app.use(express.json())
 
-const morgan = require('morgan')
+const cors = require('cors')
+app.use(cors())
 
+const morgan = require('morgan')
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post'))
 morgan.token('post', function (req, res) {
   if (req.method === 'POST') {
@@ -67,7 +68,6 @@ const generateId = (max) => {
   let person = persons.find(p => p.id === id)
 
   while (person) {
-    console.log('dublicate id found, generating a new one')
     id = Math.floor(Math.random() * max)
     person = persons.find(p => p.id === id)
   }
