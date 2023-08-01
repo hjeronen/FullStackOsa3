@@ -10,7 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setNewFilter] = useState('')
-  const [notification, setNotification] = useState({type: '', message: null})
+  const [notification, setNotification] = useState({ type: '', message: null })
 
   useEffect(() => {
     personService
@@ -25,9 +25,9 @@ const App = () => {
   )
 
   const showNotification = (type, message) => {
-    setNotification({ type: type, message: message})
+    setNotification({ type: type, message: message })
     setTimeout(() => {
-      setNotification({type: '', message: null})
+      setNotification({ type: '', message: null })
     }, 3000)
   }
 
@@ -66,7 +66,7 @@ const App = () => {
         .catch(error => {
           showNotification('error', `Error: ${error.response.data.error}`)
         })
-      
+
       return
     }
 
@@ -86,7 +86,10 @@ const App = () => {
             ))
             setNewName('')
             setNewNumber('')
-            showNotification('success', `Updated number for ${returnedPerson.name}`)
+            showNotification(
+              'success',
+              `Updated number for ${returnedPerson.name}`
+            )
           })
           .catch(error => {
             showNotification(
