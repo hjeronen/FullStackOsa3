@@ -96,9 +96,11 @@ app.put('/api/persons/:id', (req, res, next) => {
 })
 
 app.get('/info', (req, res) => {
-  const info = `<p>Phonebook has info for ${persons.length} people</p>`
-  const date = `<p>${Date()}</p>`
-  res.send(`<div>${info}${date}</div>`)
+  Person.count({}).then(result => {
+    const info = `<p>Phonebook has info for ${result} people</p>`
+    const date = `<p>${Date()}</p>`
+    res.send(`<div>${info}${date}</div>`)
+  })
 })
 
 const unknownEndpoint = (req, res) => {
