@@ -76,37 +76,37 @@ app.get('/api/persons/:id', (req, res) => {
 //   return id
 // }
 
-// app.post('/api/persons', (req, res) => {
-//   const body = req.body
+app.post('/api/persons', (req, res) => {
+  const body = req.body
 
-//   if (!body.name) {
-//     return res.status(400).json({
-//       error: 'missing name'
-//     })
-//   }
+  if (!body.name) {
+    return res.status(400).json({
+      error: 'missing name'
+    })
+  }
 
-//   if (!body.number) {
-//     return res.status(400).json({
-//       error: 'missing number'
-//     })
-//   }
+  if (!body.number) {
+    return res.status(400).json({
+      error: 'missing number'
+    })
+  }
 
-//   if (persons.find(p => p.name === body.name)) {
-//     return res.status(400).json({
-//       error: 'name must be unique'
-//     })
-//   }
+  // if (persons.find(p => p.name === body.name)) {
+  //   return res.status(400).json({
+  //     error: 'name must be unique'
+  //   })
+  // }
 
-//   const newPerson = {
-//     name: body.name,
-//     number: body.number,
-//     id: generateId(1000),
-//   }
+  const person = new Person({
+    name: body.name,
+    number: body.number
+  })
 
-//   persons = persons.concat(newPerson)
+  person.save().then(savedPerson => {
+    res.json(savedPerson)
+  })
 
-//   res.json(newPerson)
-// })
+})
 
 app.get('/info', (req, res) => {
   const info = `<p>Phonebook has info for ${persons.length} people</p>`
