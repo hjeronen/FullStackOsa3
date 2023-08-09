@@ -11,7 +11,7 @@ app.use(cors())
 
 const morgan = require('morgan')
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post'))
-morgan.token('post', function (req, res) {
+morgan.token('post', function (req) {
   if (req.method === 'POST') {
     return JSON.stringify(req.body)
   } else {
@@ -39,7 +39,7 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then(result => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(error => next(error))
